@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<style>
-
-body {
-  font: 10px sans-serif;
-}
-
-.bar rect {
-  fill: steelblue;
-  shape-rendering: crispEdges;
-}
-
-.bar text {
-  fill: #fff;
-}
-
-.axis path, .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
+    <title>MPG Data</title>
+    <style>
+      .d3-tip {
+        line-height: 1;
+        font-weight: bold;
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        border-radius: 2px;
+      }
+      .bar rect {
+        fill: steelblue;
+        shape-rendering: crispEdges;
+      }
+      .bar rect:hover{
+        fill: rgba(0,0,0,.8);
+      }
+      .axis path, .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
 </style>
 <body>
   
@@ -936,101 +937,95 @@ var values = [
    "gc_content": 72.56038647342994
 }];
 
-var binsize = 2;
-var minbin = 36;
-var maxbin = 60;
-var numbins = (maxbin - minbin) / binsize;
 
-var binmargin = .2;
-var margin = {top: 10, right: 30, bottom: 50, left: 60};
-var width = 450 - margin.left - margin.right;
-var height = 250 - margin.top - margin.bottom;
+  var binsize = 2;
+  var minbin = 45;
+  var maxbin = 75;
+  var numbins = (maxbin - minbin) / binsize;
 
-var xmin = minbin - 1
-var xmax = maxbin + 1
+  var binmargin = .2;
+  var margin = {top: 10, right: 30, bottom: 50, left: 60};
+  var width = 960 - margin.left - margin.right;
+  var height = 500 - margin.top - margin.bottom;
 
-histdata = new Array(numbins);
-for (var i = 0; i < numbins; i++) {
-  histdata[i] = { numfill: 0, meta: "" };
-}
+  var xmin = minbin - 1
+  var xmax = maxbin + 1
 
-values.forEach(function(d) {
-  var bin = Math.floor((d.gc_content - minbin) / binsize);
-  if ((bin.toString() != "NaN") && (bin < histdata.length)) {
-    histdata[bin].numfill += 1;
-    histdata[bin].meta += "<tr><td>" + d.contig + 
-                          "</td><td>" + d.gc_content.toFixed(1) +
-                          " gc_content</td></tr>";
+  histdata = new Array(numbins);
+  for (var i = 0; i < numbins; i++) {
+    histdata[i] = { numfill: 0, meta: "" };
   }
-});
 
-var x = d3.scale.linear()
-  .domain([0, (xmax - xmin)])
-  .range([0, width]);
+  values.forEach(function(d) {
+    var bin = Math.floor((d.gc_content - minbin) / binsize);
+    if ((bin.toString() != "NaN") && (bin < histdata.length)) {
+      histdata[bin].numfill += 1;
+      histdata[bin].meta += "<tr><td>" + d.contig + 
+                            "</td><td>" + d.gc_content.toFixed(1) +
+                            " gc_content</td></tr>";
+    }
+  });
 
-var x2 = d3.scale.linear()
-  .domain([xmin, xmax])
-  .range([0, width]);
 
-var y = d3.scale.linear()
-  .domain([0, d3.max(histdata, function(d) {
-    return d.numfill;
-  })])
-  .range([height, 0]);
+console.log(histdata[14].meta);
 
-var xAxis = d3.svg.axis()
-  .scale(x2)
-  .orient("bottom");
+  var x = d3.scale.linear()
+    .domain([0, (xmax - xmin)])
+    .range([0, width]);
 
-var yAxis = d3.svg.axis()
-  .scale(y)
-  .ticks(8)
-  .orient("left");
+  var x2 = d3.scale.linear()
+    .domain([xmin, xmax])
+    .range([0, width]);
 
-var svg = d3.select("#mpg").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + 
-            margin.top + ")");
+  var y = d3.scale.linear()
+    .domain([0, d3.max(histdata, function(d) {
+      return d.numfill;
+    })])
+    .range([height, 0]);
 
-var bar = svg.selectAll(".bar")
-    .data(histdata)
-    .enter().append("g")
-    .attr("class", "bar")
-    .attr("transform", function(d, i) { return "translate(" + 
-         x2(i * binsize + minbin) + "," + y(d.numfill) + ")"; });
+  var xAxis = d3.svg.axis()
+    .scale(x2)
+    .orient("bottom");
 
-bar.append("rect")
-    .attr("x", x(binmargin))
-    .attr("width", x(binsize - 2 * binmargin))
-    .attr("height", function(d) { return height - y(d.numfill); });
 
-    // add the x axis and x-label
-svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
-    svg.append("text")
-    .attr("class", "xlabel")
-    .attr("text-anchor", "middle")
-    .attr("x", width / 2)
-    .attr("y", height + margin.bottom)
-    .text("MPG");
+  var mp = d3.select("body").append("div")
+      .attr("id", "mpg")
+      .attr("class", "graph");
 
-    // add the y axis and y-label
-svg.append("g")
-    .attr("class", "y axis")
-    .attr("transform", "translate(0,0)")
-    .call(yAxis);
-    svg.append("text")
-    .attr("class", "ylabel")
-    .attr("y", 0 - margin.left) // x and y switched due to rotation
-    .attr("x", 0 - (height / 2))
-    .attr("dy", "1em")
-    .attr("transform", "rotate(-90)")
-    .style("text-anchor", "middle")
-    .text("# of fill-ups");
+  var svg = d3.select("#mpg").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + 
+              margin.top + ")");
+
+  var bar = svg.selectAll(".bar")
+      .data(histdata)
+      .enter().append("g")
+      .attr("class", "bar")
+      .attr("transform", function(d, i) { return "translate(" + 
+           x2(i * binsize + minbin) + "," + y(d.numfill) + ")"; });
+
+  bar.append("rect")
+      .attr("x", x(binmargin))
+      .attr("width", x(binsize - 2 * binmargin))
+      .attr("height", function(d) { return height - y(d.numfill); });
+
+      // add the x axis and x-label
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+      svg.append("text")
+      .attr("class", "xlabel")
+      .attr("text-anchor", "middle")
+      .attr("x", width / 2)
+      .attr("y", height + margin.bottom)
+      .text("GC-content");
+
+      // add the y axis and y-label
+
+
 // var border = 1;
 
 // var formatCount = d3.format(",.0f");
