@@ -941,9 +941,6 @@ var margin = {top: 10, right: 30, bottom: 50, left: 60};
 var width = 500 - margin.left - margin.right;
 var height = 500 - margin.top - margin.bottom;
 
-var xmin = minbin - 1
-var xmax = maxbin + 1
-
 histdata = new Array(numbins);
 for (var i = 0; i < numbins; i++) {
     histdata[i] = { numfill: 0, meta: "" };
@@ -960,7 +957,7 @@ values.forEach(function(d) {
 });
 
 var x = d3.scale.linear()
-  .domain([0, (xmax - xmin)])
+  .domain([0, (maxbin - minbin)])
   .range([0, width]);
 
 var x2 = d3.scale.linear()
