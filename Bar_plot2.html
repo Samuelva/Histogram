@@ -923,33 +923,34 @@ var values = [
 }];
 
 
-  var binsize = 2;
-  var minbin = 45;
-  var maxbin = 75;
-  var numbins = (maxbin - minbin) / binsize;
+var binsize = 2;
+var minbin = 45;
+var maxbin = 75;
+var numbins = (maxbin - minbin) / binsize;
+var colour = "steelblue"
 
-  var binmargin = .2;
-  var margin = {top: 10, right: 30, bottom: 50, left: 60};
-  var width = 500 - margin.left - margin.right;
-  var height = 500 - margin.top - margin.bottom;
+var binmargin = .2;
+var margin = {top: 10, right: 30, bottom: 50, left: 60};
+var width = 500 - margin.left - margin.right;
+var height = 500 - margin.top - margin.bottom;
 
-  var xmin = minbin - 1
-  var xmax = maxbin + 1
+var xmin = minbin - 1
+var xmax = maxbin + 1
 
-  histdata = new Array(numbins);
-  for (var i = 0; i < numbins; i++) {
-      histdata[i] = { numfill: 0, meta: "" };
-  }
+histdata = new Array(numbins);
+for (var i = 0; i < numbins; i++) {
+    histdata[i] = { numfill: 0, meta: "" };
+}
 
-  values.forEach(function(d) {
-      var bin = Math.floor((d.gc_content - minbin) / binsize);
-      if ((bin.toString() != "NaN") && (bin < histdata.length)) {
-          histdata[bin].numfill += 1;
-          histdata[bin].meta += "<tr><td>" + d.contig + 
-                                "</td><td>" + d.gc_content.toFixed(1) +
-                                " gc_content</td></tr>";
-      }
-  });
+values.forEach(function(d) {
+    var bin = Math.floor((d.gc_content - minbin) / binsize);
+    if ((bin.toString() != "NaN") && (bin < histdata.length)) {
+        histdata[bin].numfill += 1;
+        histdata[bin].meta += "<tr><td>" + d.contig + 
+                              "</td><td>" + d.gc_content.toFixed(1) +
+                              " gc_content</td></tr>";
+    }
+});
 
 var x = d3.scale.linear()
   .domain([0, (xmax - xmin)])
@@ -997,7 +998,7 @@ var bar = svg.selectAll(".bar")
             d3.select(this).attr("opacity", .8)
             active = true
         } else if (active == true) {
-            d3.select(this).attr("fill", "steelblue")
+            d3.select(this).attr("fill", colour)
             d3.select(this).attr("opacity", 1)
             active = false
         }
