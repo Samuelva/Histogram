@@ -945,7 +945,7 @@ var values = [
 
   var binmargin = .2;
   var margin = {top: 10, right: 30, bottom: 50, left: 60};
-  var width = 960 - margin.left - margin.right;
+  var width = 500 - margin.left - margin.right;
   var height = 500 - margin.top - margin.bottom;
 
   var xmin = minbin - 1
@@ -969,59 +969,63 @@ var values = [
 
 console.log(histdata[14].meta);
 
-  var x = d3.scale.linear()
-    .domain([0, (xmax - xmin)])
-    .range([0, width]);
+var x = d3.scale.linear()
+  .domain([0, (xmax - xmin)])
+  .range([0, width]);
 
-  var x2 = d3.scale.linear()
-    .domain([xmin, xmax])
-    .range([0, width]);
+var x2 = d3.scale.linear()
+  .domain([xmin, xmax])
+  .range([0, width]);
 
-  var y = d3.scale.linear()
-    .domain([0, d3.max(histdata, function(d) {
-      return d.numfill;
-    })])
-    .range([height, 0]);
+var y = d3.scale.linear()
+  .domain([0, d3.max(histdata, function(d) {
+    return d.numfill;
+  })])
+  .range([height, 0]);
 
-  var xAxis = d3.svg.axis()
-    .scale(x2)
-    .orient("bottom");
+var xAxis = d3.svg.axis()
+  .scale(x2)
+  .orient("bottom");
 
 
-  var mp = d3.select("body").append("div")
-      .attr("id", "mpg")
-      .attr("class", "graph");
+var mp = d3.select("body").append("div")
+    .attr("id", "mpg")
+    .attr("class", "graph");
 
-  var svg = d3.select("#mpg").append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + 
-              margin.top + ")");
+var svg = d3.select("#mpg").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + 
+            margin.top + ")");
 
-  var bar = svg.selectAll(".bar")
-      .data(histdata)
-      .enter().append("g")
-      .attr("class", "bar")
-      .attr("transform", function(d, i) { return "translate(" + 
-           x2(i * binsize + minbin) + "," + y(d.numfill) + ")"; });
+var bar = svg.selectAll(".bar")
+    .data(histdata)
+    .enter().append("g")
+    .attr("class", "bar")
+    .attr("transform", function(d, i) { return "translate(" + 
+         x2(i * binsize + minbin) + "," + y(d.numfill) + ")"; });
 
-  bar.append("rect")
-      .attr("x", x(binmargin))
-      .attr("width", x(binsize - 2 * binmargin))
-      .attr("height", function(d) { return height - y(d.numfill); });
+bar.append("rect")
+    .attr("x", x(binmargin))
+    .attr("width", x(binsize - 2 * binmargin))
+    .attr("height", function(d) { return height - y(d.numfill); })
+    .on("click", function(d) {
+        d3.select(this).attr("fill", "white");
+    });
 
-      // add the x axis and x-label
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
-      svg.append("text")
-      .attr("class", "xlabel")
-      .attr("text-anchor", "middle")
-      .attr("x", width / 2)
-      .attr("y", height + margin.bottom)
-      .text("GC-content");
+    // add the x axis and x-label
+svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
+
+svg.append("text")
+    .attr("class", "xlabel")
+    .attr("text-anchor", "middle")
+    .attr("x", width / 2)
+    .attr("y", height + margin.bottom)
+    .text("GC-content");
 
       // add the y axis and y-label
 
