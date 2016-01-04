@@ -922,13 +922,21 @@ var values = [
    "gc_content": 72.56038647342994
 }];
 
+var x_data = "gc_content"
+    y_data = "contig"
+    colour = "steelblue"
 
+var minbin = d3.min(values, function (d) {
+    return Math.round(d[x_data]/10)*10
+});
+
+var maxbin = d3.max(values, function (d) {
+        return Math.ceil(d[x_data]/10)*10
+});
+console.log(minbin);
+console.log(maxbin);
 var binsize = 2;
-var minbin = 45;
-var maxbin = 75;
 var numbins = (maxbin - minbin) / binsize;
-var colour = "steelblue"
-
 var binmargin = .2;
 var margin = {top: 10, right: 30, bottom: 50, left: 60};
 var width = 500 - margin.left - margin.right;
@@ -943,12 +951,12 @@ for (var i = 0; i < numbins; i++) {
 }
 
 values.forEach(function(d) {
-    var bin = Math.floor((d.gc_content - minbin) / binsize);
+    var bin = Math.floor((d[x_data] - minbin) / binsize);
     if ((bin.toString() != "NaN") && (bin < histdata.length)) {
         histdata[bin].numfill += 1;
-        histdata[bin].meta += "<tr><td>" + d.contig + 
-                              "</td><td>" + d.gc_content.toFixed(1) +
-                              " gc_content</td></tr>";
+        histdata[bin].meta += "<tr><td>" + d[y_data] + 
+                              "</td><td>" + d[x_data].toFixed(1) +
+                              " x_data</td></tr>";
     }
 });
 
@@ -1018,7 +1026,7 @@ svg.append("text")
     .attr("class", "xlabel")
     .attr("text-anchor", "middle")
     .attr("x", width / 2)
-    .attr("y", height + margin.bottom)
-    .text("GC-content");
+    .attr("y", height + margin.bottom-10)
+    .text(x_data);
 
 </script>
