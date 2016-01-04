@@ -2,21 +2,6 @@
 <meta charset="utf-8">
     <title>MPG Data</title>
     <style>
-      .d3-tip {
-        line-height: 1;
-        font-weight: bold;
-        padding: 12px;
-        background: rgba(0, 0, 0, 0.8);
-        color: #fff;
-        border-radius: 2px;
-      }
-      .bar rect {
-        fill: steelblue;
-        shape-rendering: crispEdges;
-      }
-      .bar rect:hover{
-        fill: rgba(0,0,0,.8);
-      }
       .axis path, .axis line {
         fill: none;
         stroke: #000;
@@ -953,17 +938,17 @@ var values = [
 
   histdata = new Array(numbins);
   for (var i = 0; i < numbins; i++) {
-    histdata[i] = { numfill: 0, meta: "" };
+      histdata[i] = { numfill: 0, meta: "" };
   }
 
   values.forEach(function(d) {
-    var bin = Math.floor((d.gc_content - minbin) / binsize);
-    if ((bin.toString() != "NaN") && (bin < histdata.length)) {
-      histdata[bin].numfill += 1;
-      histdata[bin].meta += "<tr><td>" + d.contig + 
-                            "</td><td>" + d.gc_content.toFixed(1) +
-                            " gc_content</td></tr>";
-    }
+      var bin = Math.floor((d.gc_content - minbin) / binsize);
+      if ((bin.toString() != "NaN") && (bin < histdata.length)) {
+          histdata[bin].numfill += 1;
+          histdata[bin].meta += "<tr><td>" + d.contig + 
+                                "</td><td>" + d.gc_content.toFixed(1) +
+                                " gc_content</td></tr>";
+      }
   });
 
 
@@ -999,22 +984,35 @@ var svg = d3.select("#mpg").append("svg")
     .attr("transform", "translate(" + margin.left + "," + 
             margin.top + ")");
 
+var active = false;
+
 var bar = svg.selectAll(".bar")
     .data(histdata)
     .enter().append("g")
     .attr("class", "bar")
     .attr("transform", function(d, i) { return "translate(" + 
-         x2(i * binsize + minbin) + "," + y(d.numfill) + ")"; });
+         x2(i * binsize + minbin) + "," + y(d.numfill) + ")"; })
+    .attr("fill", "steelblue")
+    .attr("shape-rendering", "crispEdges")
+    .on("click", function(d) {
+        if (active == false) {
+            d3.select(this).attr("fill", "black")
+            d3.select(this).attr("opacity", .8)
+            active = true
+        } else if (active == true) {
+            d3.select(this).attr("fill", "steelblue")
+            d3.select(this).attr("opacity", 1)
+            active = false
+        }
+    });
 
 bar.append("rect")
     .attr("x", x(binmargin))
     .attr("width", x(binsize - 2 * binmargin))
-    .attr("height", function(d) { return height - y(d.numfill); })
-    .on("click", function(d) {
-        d3.select(this).attr("fill", "white");
-    });
+    .attr("height", function(d) { return height - y(d.numfill); });
 
-    // add the x axis and x-label
+
+
 svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
@@ -1026,116 +1024,5 @@ svg.append("text")
     .attr("x", width / 2)
     .attr("y", height + margin.bottom)
     .text("GC-content");
-
-      // add the y axis and y-label
-
-
-// var border = 1;
-
-// var formatCount = d3.format(",.0f");
-
-// var margin = {top: 10, right: 30, bottom: 30, left: 30},
-//     width = 960 - margin.left - margin.right,
-//     height = 500 - margin.top - margin.bottom;
-
-// var minX = d3.min(values, function(d) {return d.gc_content; });
-
-// var minX_rounded = 5 * Math.round(minX/5);
-
-// var maxX = d3.max(values, function(d) { return d.gc_content; });
-
-// console.log(maxX)
-
-// var maxX_rounded = (parseInt(maxX/10,10)+1)*10;
-
-// var x = d3.scale.linear()
-//     .domain([minX_rounded, maxX_rounded])
-//     .range([0, width]);
-
-// var data = d3.layout.histogram()
-//     .bins(x.ticks(30))
-//     (values);
-
-// var y = d3.scale.linear()
-//     .domain([0, d3.max(values, function(d) { 
-//       console.log(d.gc_content.y);
-//       return d.y; })])
-//     .range([height, 0]);
-
-// var xAxis = d3.svg.axis()
-//     .scale(x)
-//     .orient("bottom");
-
-// var tooltip = d3.select('body')
-//     .append('div')
-//     .style('position', 'absolute')
-//     .attr('class', 'mytooltip')
-//     .style('background', '#F0F0F0 ')
-//     .style('padding', '10px 10px')
-//     .style('border-radius', '2px')
-//     .style('opacity', '0');
-
-// var contigs = d3.select('body').append('div')
-//     .style('position','absolute')
-//     .style('padding','0 10px')
-//     .style('background','white')
-//     .style('opacity',0);
-
-// var svg = d3.select("body").append("svg")
-//     .attr("width", width + margin.left + margin.right)
-//     .attr("height", height + margin.top + margin.bottom)
-//     .append("g")
-//     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-// var bar = svg.selectAll(".bar")
-//     .data(data)
-//     .enter().append("g")
-//     .attr("class", "bar")
-//     .attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.y) + ")"; });
-
-// bar.append("rect")
-//     .attr("x", 1)
-//     .attr("width", (maxX_rounded - minX_rounded) - 1 )
-//     .attr("height", function(d) { return height - y(d.y); })
-//     .on('mouseover',function(d){
-//         tooltip
-//           .transition()
-//           .style('opacity',.9)
- 
-//         tooltip.html(d.y)
-//           .style('left',(d3.event.pageX - 15)+ 'px')
-//           .style('top',(d3.event.pageY - 50) + 'px') 
- 
-//         contigs.transition()
-//           .style('opacity',1)
-
-//         contigs.html(d)
-//           .style('left', '50px')
-//           .style('top', '500px')
-
-//         tempcolor = this.style.fill
-  
-//         d3.select(this)
-//           .style('opacity',.5)
-//     })
-
-//     .on("mouseout", function(d){
-//         d3.select(this)
-//           .style("opacity",1)
-//         tooltip.transition()
-//           .style('opacity',0)
-//     });
-
-// bar.append("text")
-//     .attr("dy", ".75em")
-//     .attr("y", 6)
-//     .attr("x", (maxX_rounded - minX_rounded) / 2)
-//     .attr("text-anchor", "middle")
-//     .text(function(d) { return formatCount(d.y); });
-
-// svg.append("g")
-//     .attr("class", "x axis")
-//     .attr("transform", "translate(0," + height + ")")
-//     .call(xAxis);
 
 </script>
