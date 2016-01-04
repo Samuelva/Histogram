@@ -933,8 +933,7 @@ var minbin = d3.min(values, function (d) {
 var maxbin = d3.max(values, function (d) {
         return Math.ceil(d[x_data]/10)*10
 });
-console.log(minbin);
-console.log(maxbin);
+
 var binsize = 2;
 var numbins = (maxbin - minbin) / binsize;
 var binmargin = .2;
