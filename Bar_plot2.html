@@ -981,6 +981,15 @@ var svg = d3.select("#mpg").append("svg")
     .attr("transform", "translate(" + margin.left + "," + 
             margin.top + ")");
 
+var contig_table = d3.select("body").append("div")
+    .attr("id", "contig_table");
+
+var svg_table = d3.select("#contig_table").append("svg")
+    .attr("width", 100)
+    .attr("height", 100)
+    .style("border-style", "solid")
+    .append("g");
+
 var active = false;
 
 var bar = svg.selectAll(".bar")
