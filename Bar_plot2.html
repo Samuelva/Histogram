@@ -7,8 +7,20 @@
         stroke: #000;
         shape-rendering: crispEdges;
       }
-      #tiptable {
+      .tooltip {
         border-style: solid;
+        border-color: grey;
+        border-radius: 5px;
+        border-width: 1px;
+        overflow-y: scroll;
+        height: 200px;
+        width: 300px;
+      }
+      #tiptable {
+        margin: 10px 10px 10px 10px;
+      }
+      .tr {
+        border: solid;
       }
 </style>
 <body>
@@ -1005,7 +1017,7 @@ var bar = svg.selectAll(".bar")
             div.transition()
                 .duration(200)
                 .style("opacity", .9);
-            div.html('<table id="tiptable">' + d.meta + "</table>");
+            div.html('<table id="tiptable">' + d.meta + "</table>")
             active = true
         }
         else if (active == true) {
