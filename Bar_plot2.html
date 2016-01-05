@@ -938,43 +938,48 @@ var values = [
    "gc_content": 72.56038647342994
 }];
 
+var x_data = "gc_content"
+    y_data = "contig"
+    colour = "steelblue"
 
-  var binsize = 2;
-  var minbin = 45;
-  var maxbin = 75;
-  var numbins = (maxbin - minbin) / binsize;
+var minbin = d3.min(values, function (d) {
+    return Math.round(d[x_data]/10)*10
+});
 
-  var binmargin = .2;
-  var margin = {top: 10, right: 30, bottom: 50, left: 60};
-  var width = 500 - margin.left - margin.right;
-  var height = 500 - margin.top - margin.bottom;
+var maxbin = d3.max(values, function (d) {
+        return Math.ceil(d[x_data]/10)*10
+});
 
-  var xmin = minbin - 1
-  var xmax = maxbin + 1
+var binsize = 2;
+var numbins = (maxbin - minbin) / binsize;
+var binmargin = .2;
+var margin = {top: 10, right: 10, bottom: 50, left: 10};
+var width = 500 - margin.left - margin.right;
+var height = 500 - margin.top - margin.bottom;
 
-  var active = false;
+var active = false;
 
-  histdata = new Array(numbins);
-  for (var i = 0; i < numbins; i++) {
-      histdata[i] = { numfill: 0, meta: "" };
-  }
+histdata = new Array(numbins);
+for (var i = 0; i < numbins; i++) {
+    histdata[i] = { numfill: 0, meta: "" };
+}
 
-  values.forEach(function(d) {
-      var bin = Math.floor((d.gc_content - minbin) / binsize);
-      if ((bin.toString() != "NaN") && (bin < histdata.length)) {
-          histdata[bin].numfill += 1;
-          histdata[bin].meta += "<tr><td>" + d.contig + 
-                                "</td><td>" + d.gc_content.toFixed(1) +
-                                " gc_content</td></tr>";
-      }
-  });
+values.forEach(function(d) {
+    var bin = Math.floor((d.gc_content - minbin) / binsize);
+    if ((bin.toString() != "NaN") && (bin < histdata.length)) {
+        histdata[bin].numfill += 1;
+        histdata[bin].meta += "<tr><td>" + d.contig + 
+                              "</td><td>" + d.gc_content.toFixed(1) +
+                              " gc_content</td></tr>";
+    }
+});
 
 var x = d3.scale.linear()
-  .domain([0, (xmax - xmin)])
+  .domain([0, (maxbin - minbin)])
   .range([0, width]);
 
 var x2 = d3.scale.linear()
-  .domain([xmin, xmax])
+  .domain([minbin, maxbin])
   .range([0, width]);
 
 var y = d3.scale.linear()
@@ -997,8 +1002,6 @@ var svg = d3.select("#mpg").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + 
             margin.top + ")");
-//var contig_table = d3.select("body").append("div")
-//    .attr("id", "contig_table");
 
 var div = d3.select("body").append("div")
     .attr("class", "tooltip")
