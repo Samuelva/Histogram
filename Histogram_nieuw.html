@@ -407,29 +407,18 @@ bar.append("rect")
           .style('opacity',1)
 
         contigs.html(function() {
-            bin_content = new Array(d.length);
-            for (var i = 0; i < d.length; i++) {
-			    bin_content[i] = { meta: "" };
-			}
+            var bin_content = {
+                meta : ""
+            }
         	for (var i = 0; i < d.length; i++) {
         		bin_content.meta += "<tr><td>" + d[i][yValue] +
         							"</td><td>" + d[i][xValue].toFixed(1) +
         							"</td></tr>";
         	}
-            console.log(bin_content.meta);
         	return '<table id="tiptable">' + bin_content.meta + "</table>" })
 
             .style('left', '50px')
             .style('top', '500px')
-        tempcolor = this.style.fill
-  
-        d3.select(this)
-            .style('opacity',.5)
-    })
-
-    .on("mouseout", function(d){
-        d3.select(this)
-            .style("opacity",1)
     });
 
 bar.append("text")
