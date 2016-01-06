@@ -26,940 +26,341 @@
 <body>
   
 <script src="//d3js.org/d3.v3.min.js"></script>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script>
 // Generate a Bates distribution of 10 random variables.
 var values = [
-  {
-   "contig": "contig_49902",
-   "gc_content": 63.99360063993601,
-  }, {
-   "contig": "contig_52155",
-   "gc_content": 65.4034596540346,
-  }, {
-   "contig": "contig_28792",
-   "gc_content": 66.4833516648335,
-  }, {
-   "contig": "contig_22391",
-   "gc_content": 67.6032396760324,
-  }, {
-   "contig": "contig_53024",
-   "gc_content": 67.67323267673233,
-  }, {
-   "contig": "contig_24213",
-   "gc_content": 63.40365963403659,
-  }, {
-   "contig": "contig_49637",
-   "gc_content": 66.59334066593341,
-  }, {
-   "contig": "contig_3119",
-   "gc_content": 66.8033196680332,
-  }, {
-   "contig": "contig_19326",
-   "gc_content": 65.82341765823418,
-  }, {
-   "contig": "contig_42870",
-   "gc_content": 65.35346465353464,
-  }, {
-   "contig": "contig_31632",
-   "gc_content": 65.15348465153484,
-  }, {
-   "contig": "contig_12684",
-   "gc_content": 64.53354664533548,
-  }, {
-   "contig": "contig_23182",
-   "gc_content": 64.33356664333567,
-  }, {
-   "contig": "contig_12267",
-   "gc_content": 66.97330266973303,
-  }, {
-   "contig": "contig_50513",
-   "gc_content": 68.3031696830317,
-  }, {
-   "contig": "contig_16121",
-   "gc_content": 66.46335366463354,
-  }, {
-   "contig": "contig_43980",
-   "gc_content": 64.8035196480352,
-  }, {
-   "contig": "contig_5390",
-   "gc_content": 66.47335266473353,
-  }, {
-   "contig": "contig_24453",
-   "gc_content": 65.96340365963404,
-  }, {
-   "contig": "contig_35204",
-   "gc_content": 64.96350364963503,
-  }, {
-   "contig": "contig_22556",
-   "gc_content": 66.003399660034,
-  }, {
-   "contig": "contig_22726",
-   "gc_content": 64.53354664533548,
-  }, {
-   "contig": "contig_20526",
-   "gc_content": 65.81341865813418,
-  }, {
-   "contig": "contig_13879",
-   "gc_content": 64.55354464553544,
-  }, {
-   "contig": "contig_3808",
-   "gc_content": 66.4073894020418,
-  }, {
-   "contig": "contig_23911",
-   "gc_content": 61.72382761723828,
-  }, {
-   "contig": "contig_10768",
-   "gc_content": 68.50314968503149,
-  }, {
-   "contig": "contig_41874",
-   "gc_content": 68.92310768923107,
-  }, {
-   "contig": "contig_40988",
-   "gc_content": 67.27327267273273,
-  }, {
-   "contig": "contig_41478",
-   "gc_content": 68.39316068393161,
-  }, {
-   "contig": "contig_55903",
-   "gc_content": 68.34316568343166,
-  }, {
-   "contig": "contig_6504",
-   "gc_content": 68.47315268473153,
-  }, {
-   "contig": "contig_59583",
-   "gc_content": 68.4031596840316,
-  }, {
-   "contig": "contig_40341",
-   "gc_content": 67.52324767523248,
-  }, {
-   "contig": "contig_17746",
-   "gc_content": 66.003399660034,
-  }, {
-   "contig": "contig_56203",
-   "gc_content": 66.03339666033396,
-  }, {
-   "contig": "contig_1167",
-   "gc_content": 68.86311368863115,
-  }, {
-   "contig": "contig_45252",
-   "gc_content": 68.01319868013199,
-  }, {
-   "contig": "contig_54713",
-   "gc_content": 57.67423257674233,
-  }, {
-   "contig": "contig_54932",
-   "gc_content": 58.11418858114189,
-  }, {
-   "contig": "contig_18299",
-   "gc_content": 66.1033896610339,
-  }, {
-   "contig": "contig_15289",
-   "gc_content": 69.72302769723028,
-  }, {
-   "contig": "contig_3408",
-   "gc_content": 68.1931806819318,
-  }, {
-   "contig": "contig_44522",
-   "gc_content": 67.41325867413258,
-  }, {
-   "contig": "contig_2989",
-   "gc_content": 69.18308169183082,
-  }, {
-   "contig": "contig_45767",
-   "gc_content": 68.65313468653135,
-  }, {
-   "contig": "contig_43934",
-   "gc_content": 67.37292669876939,
-  }, {
-   "contig": "contig_8059",
-   "gc_content": 68.17318268173183,
-  }, {
-   "contig": "contig_20247",
-   "gc_content": 66.8933106689331,
-  }, {
-   "contig": "contig_26507",
-   "gc_content": 65.56344365563443,
-  }, {
-   "contig": "contig_26048",
-   "gc_content": 64.73352664733527,
-  }, {
-   "contig": "contig_49364",
-   "gc_content": 66.22337766223377,
-  }, {
-   "contig": "contig_18056",
-   "gc_content": 66.63333666633336,
-  }, {
-   "contig": "contig_19966",
-   "gc_content": 68.92310768923107,
-  }, {
-   "contig": "contig_7478",
-   "gc_content": 67.5932406759324,
-  }, {
-   "contig": "contig_45676",
-   "gc_content": 64.06359364063594,
-  }, {
-   "contig": "contig_14367",
-   "gc_content": 64.76352364763524,
-  }, {
-   "contig": "contig_35714",
-   "gc_content": 67.63323667633236,
-  }, {
-   "contig": "contig_45634",
-   "gc_content": 66.76332366763323,
-  }, {
-   "contig": "contig_38829",
-   "gc_content": 66.77332266773323,
-  }, {
-   "contig": "contig_51741",
-   "gc_content": 64.6035396460354,
-  }, {
-   "contig": "contig_26185",
-   "gc_content": 62.36376362363764,
-  }, {
-   "contig": "contig_39128",
-   "gc_content": 67.41325867413258,
-  }, {
-   "contig": "contig_3877",
-   "gc_content": 67.37326267373263,
-  }, {
-   "contig": "contig_56948",
-   "gc_content": 65.09349065093491,
-  }, {
-   "contig": "contig_22696",
-   "gc_content": 68.61313868613139,
-  }, {
-   "contig": "contig_18281",
-   "gc_content": 66.77332266773323,
-  }, {
-   "contig": "contig_4237",
-   "gc_content": 64.96543609354318,
-  }, {
-   "contig": "contig_9545",
-   "gc_content": 66.51334866513349,
-  }, {
-   "contig": "contig_39673",
-   "gc_content": 68.45315468453154,
-  }, {
-   "contig": "contig_36848",
-   "gc_content": 67.72322767723227,
-  }, {
-   "contig": "contig_45604",
-   "gc_content": 64.78352164783522,
-  }, {
-   "contig": "contig_28550",
-   "gc_content": 68.3031696830317,
-  }, {
-   "contig": "contig_24042",
-   "gc_content": 66.98330166983301,
-  }, {
-   "contig": "contig_25497",
-   "gc_content": 65.69343065693431,
-  }, {
-   "contig": "contig_42345",
-   "gc_content": 66.55334466553344,
-  }, {
-   "contig": "contig_53057",
-   "gc_content": 65.96340365963404,
-  }, {
-   "contig": "contig_16897",
-   "gc_content": 64.97350264973502,
-  }, {
-   "contig": "contig_56508",
-   "gc_content": 67.3032696730327,
-  }, {
-   "contig": "contig_23784",
-   "gc_content": 65.53344665533447,
-  }, {
-   "contig": "contig_21688",
-   "gc_content": 66.8933106689331,
-  }, {
-   "contig": "contig_52487",
-   "gc_content": 65.72342765723428,
-  }, {
-   "contig": "contig_6713",
-   "gc_content": 64.88351164883511,
-  }, {
-   "contig": "contig_17749",
-   "gc_content": 65.10476190476192,
-  }, {
-   "contig": "contig_17983",
-   "gc_content": 70.0929907009299,
-  }, {
-   "contig": "contig_914",
-   "gc_content": 67.17328267173282,
-  }, {
-   "contig": "contig_25539",
-   "gc_content": 67.33326667333267,
-  }, {
-   "contig": "contig_47125",
-   "gc_content": 65.34346565343465,
-  }, {
-   "contig": "contig_25427",
-   "gc_content": 67.74322567743226,
-  }, {
-   "contig": "contig_53645",
-   "gc_content": 70.32296770322968,
-  }, {
-   "contig": "contig_10107",
-   "gc_content": 70.25297470252974,
-  }, {
-   "contig": "contig_44544",
-   "gc_content": 71.15288471152886,
-  }, {
-   "contig": "contig_43061",
-   "gc_content": 69.97300269973003,
-  }, {
-   "contig": "contig_55496",
-   "gc_content": 69.45305469453055,
-  }, {
-   "contig": "contig_32764",
-   "gc_content": 64.63353664633537,
-  }, {
-   "contig": "contig_55570",
-   "gc_content": 65.24347565243475,
-  }, {
-   "contig": "contig_4559",
-   "gc_content": 68.35316468353165,
-  }, {
-   "contig": "contig_18522",
-   "gc_content": 67.33326667333267,
-  }, {
-   "contig": "contig_35122",
-   "gc_content": 66.25579086697552,
-  }, {
-   "contig": "contig_49527",
-   "gc_content": 64.26357364263573,
-  }, {
-   "contig": "contig_44048",
-   "gc_content": 68.82311768823118,
-  }, {
-   "contig": "contig_54313",
-   "gc_content": 68.6031396860314,
-  }, {
-   "contig": "contig_27176",
-   "gc_content": 66.34336566343366,
-  }, {
-   "contig": "contig_39629",
-   "gc_content": 65.1934806519348,
-  }, {
-   "contig": "contig_20203",
-   "gc_content": 66.8033196680332,
-  }, {
-   "contig": "contig_25577",
-   "gc_content": 68.37316268373162,
-  }, {
-   "contig": "contig_23037",
-   "gc_content": 65.39346065393461,
-  }, {
-   "contig": "contig_17091",
-   "gc_content": 66.7033296670333,
-  }, {
-   "contig": "contig_13072",
-   "gc_content": 65.84341565843415,
-  }, {
-   "contig": "contig_19305",
-   "gc_content": 67.04329567043295,
-  }, {
-   "contig": "contig_34013",
-   "gc_content": 68.14318568143186,
-  }, {
-   "contig": "contig_1056",
-   "gc_content": 66.73332666733327,
-  }, {
-   "contig": "contig_46502",
-   "gc_content": 67.48325167483252,
-  }, {
-   "contig": "contig_24548",
-   "gc_content": 67.82321767823217,
-  }, {
-   "contig": "contig_6918",
-   "gc_content": 64.7426784191072,
-  }, {
-   "contig": "contig_49556",
-   "gc_content": 62.413758624137586,
-  }, {
-   "contig": "contig_36548",
-   "gc_content": 66.28337166283372,
-  }, {
-   "contig": "contig_8738",
-   "gc_content": 64.8935106489351,
-  }, {
-   "contig": "contig_33670",
-   "gc_content": 65.33346665333467,
-  }, {
-   "contig": "contig_23490",
-   "gc_content": 66.6933306669333,
-  }, {
-   "contig": "contig_1462",
-   "gc_content": 67.6832316768323,
-  }, {
-   "contig": "contig_14994",
-   "gc_content": 66.77332266773323,
-  }, {
-   "contig": "contig_57608",
-   "gc_content": 66.23337666233377,
-  }, {
-   "contig": "contig_8467",
-   "gc_content": 67.72322767723227,
-  }, {
-   "contig": "contig_53227",
-   "gc_content": 67.5932406759324,
-  }, {
-   "contig": "contig_49736",
-   "gc_content": 66.12338766123388,
-  }, {
-   "contig": "contig_38994",
-   "gc_content": 67.0993006993007,
-  }, {
-   "contig": "contig_5182",
-   "gc_content": 59.944005599440054,
-  }, {
-   "contig": "contig_29893",
-   "gc_content": 66.12338766123388,
-  }, {
-   "contig": "contig_55253",
-   "gc_content": 65.21347865213478,
-  }, {
-   "contig": "contig_33033",
-   "gc_content": 67.78322167783222,
-  }, {
-   "contig": "contig_16181",
-   "gc_content": 67.03329667033296,
-  }, {
-   "contig": "contig_46068",
-   "gc_content": 69.06309369063094,
-  }, {
-   "contig": "contig_54924",
-   "gc_content": 65.26347365263474,
-  }, {
-   "contig": "contig_44578",
-   "gc_content": 68.4031596840316,
-  }, {
-   "contig": "contig_30868",
-   "gc_content": 68.39316068393161,
-  }, {
-   "contig": "contig_12734",
-   "gc_content": 70.17298270172982,
-  }, {
-   "contig": "contig_50276",
-   "gc_content": 68.55314468553144,
-  }, {
-   "contig": "contig_31641",
-   "gc_content": 67.54324567543246,
-  }, {
-   "contig": "contig_32537",
-   "gc_content": 69.25307469253075,
-  }, {
-   "contig": "contig_32703",
-   "gc_content": 67.17328267173282,
-  }, {
-   "contig": "contig_9502",
-   "gc_content": 68.45315468453154,
-  }, {
-   "contig": "contig_49993",
-   "gc_content": 62.63373662633737,
-  }, {
-   "contig": "contig_3572",
-   "gc_content": 67.6132386761324,
-  }, {
-   "contig": "contig_4538",
-   "gc_content": 63.27367263273672,
-  }, {
-   "contig": "contig_50714",
-   "gc_content": 65.32346765323467,
-  }, {
-   "contig": "contig_49166",
-   "gc_content": 64.2935706429357,
-  }, {
-   "contig": "contig_22931",
-   "gc_content": 64.98370465352353,
-  }, {
-   "contig": "contig_16028",
-   "gc_content": 66.71332866713328,
-  }, {
-   "contig": "contig_39413",
-   "gc_content": 65.85341465853415,
-  }, {
-   "contig": "contig_3933",
-   "gc_content": 65.94340565943405,
-  }, {
-   "contig": "contig_48431",
-   "gc_content": 61.92380761923808,
-  }, {
-   "contig": "contig_26493",
-   "gc_content": 67.8032196780322,
-  }, {
-   "contig": "contig_6196",
-   "gc_content": 68.07319268073194,
-  }, {
-   "contig": "contig_9409",
-   "gc_content": 66.993300669933,
-  }, {
-   "contig": "contig_22904",
-   "gc_content": 70.54294570542946,
-  }, {
-   "contig": "contig_18713",
-   "gc_content": 67.22327767223277,
-  }, {
-   "contig": "contig_20290",
-   "gc_content": 66.79332066793322,
-  }, {
-   "contig": "contig_37501",
-   "gc_content": 66.06055876385204,
-  }, {
-   "contig": "contig_57500",
-   "gc_content": 69.13308669133087,
-  }, {
-   "contig": "contig_26827",
-   "gc_content": 66.71332866713328,
-  }, {
-   "contig": "contig_7686",
-   "gc_content": 69.94300569943006,
-  }, {
-   "contig": "contig_45081",
-   "gc_content": 69.7930206979302,
-  }, {
-   "contig": "contig_53310",
-   "gc_content": 69.28307169283072,
-  }, {
-   "contig": "contig_20930",
-   "gc_content": 69.52304769523047,
-  }, {
-   "contig": "contig_46591",
-   "gc_content": 66.74332566743327,
-  }, {
-   "contig": "contig_47235",
-   "gc_content": 67.9032096790321,
-  }, {
-   "contig": "contig_4763",
-   "gc_content": 69.01309869013099,
-  }, {
-   "contig": "contig_31028",
-   "gc_content": 68.13318668133186,
-  }, {
-   "contig": "contig_57619",
-   "gc_content": 67.30229406640208,
-  }, {
-   "contig": "contig_46814",
-   "gc_content": 65.66343365663434,
-  }, {
-   "contig": "contig_56510",
-   "gc_content": 71.71282871712829,
-  }, {
-   "contig": "contig_11965",
-   "gc_content": 67.79322067793221,
-  }, {
-   "contig": "contig_36917",
-   "gc_content": 66.56334366563344,
-  }, {
-   "contig": "contig_25892",
-   "gc_content": 67.92320767923208,
-  }, {
-   "contig": "contig_8264",
-   "gc_content": 66.15338466153385,
-  }, {
-   "contig": "contig_35482",
-   "gc_content": 67.85321467853215,
-  }, {
-   "contig": "contig_1843",
-   "gc_content": 64.11358864113589,
-  }, {
-   "contig": "contig_28499",
-   "gc_content": 66.72332766723328,
-  }, {
-   "contig": "contig_3137",
-   "gc_content": 65.51344865513448,
-  }, {
-   "contig": "contig_17540",
-   "gc_content": 64.0157639450283,
-  }, {
-   "contig": "contig_31296",
-   "gc_content": 66.65333466653335,
-  }, {
-   "contig": "contig_26510",
-   "gc_content": 66.84331566843315,
-  }, {
-   "contig": "contig_54959",
-   "gc_content": 66.72332766723328,
-  }, {
-   "contig": "contig_59349",
-   "gc_content": 65.72342765723428,
-  }, {
-   "contig": "contig_8043",
-   "gc_content": 65.99340065993401,
-  }, {
-   "contig": "contig_47138",
-   "gc_content": 62.76372362763723,
-  }, {
-   "contig": "contig_33722",
-   "gc_content": 66.72332766723328,
-  }, {
-   "contig": "contig_18952",
-   "gc_content": 66.04681895412497,
-  }, {
-   "contig": "contig_23250",
-   "gc_content": 64.06359364063594,
-  }, {
-   "contig": "contig_44716",
-   "gc_content": 63.433656634336565,
-  }, {
-   "contig": "contig_13804",
-   "gc_content": 61.37386261373863,
-  }, {
-   "contig": "contig_18634",
-   "gc_content": 66.25337466253374,
-  }, {
-   "contig": "contig_21005",
-   "gc_content": 65.21347865213478,
-  }, {
-   "contig": "contig_38809",
-   "gc_content": 66.95230808467227,
-  }, {
-   "contig": "contig_34425",
-   "gc_content": 68.27317268273173,
-  }, {
-   "contig": "contig_32212",
-   "gc_content": 68.11318868113189,
-  }, {
-   "contig": "contig_1161",
-   "gc_content": 69.86301369863014,
-  }, {
-   "contig": "contig_9808",
-   "gc_content": 67.2032796720328,
-  }, {
-   "contig": "contig_16907",
-   "gc_content": 69.53304669533047,
-  }, {
-   "contig": "contig_46990",
-   "gc_content": 66.6323377960865,
-  }, {
-   "contig": "contig_3260",
-   "gc_content": 67.24327567243276,
-  }, {
-   "contig": "contig_49239",
-   "gc_content": 66.6933306669333,
-  }, {
-   "contig": "contig_54299",
-   "gc_content": 70.64293570642936,
-  }, {
-   "contig": "contig_6757",
-   "gc_content": 69.32306769323068,
-  }, {
-   "contig": "contig_37034",
-   "gc_content": 68.2931706829317,
-  }, {
-   "contig": "contig_33103",
-   "gc_content": 68.8031196880312,
-  }, {
-   "contig": "contig_53575",
-   "gc_content": 67.81321867813219,
-  }, {
-   "contig": "contig_38919",
-   "gc_content": 72.14278572142786,
-  }, {
-   "contig": "contig_19725",
-   "gc_content": 68.62313768623137,
-  }, {
-   "contig": "contig_53096",
-   "gc_content": 67.67323267673233,
-  }, {
-   "contig": "contig_38882",
-   "gc_content": 66.77332266773323,
-  }, {
-   "contig": "contig_10267",
-   "gc_content": 68.77065247829741,
-  }, {
-   "contig": "contig_17068",
-   "gc_content": 58.58414158584142,
-  }, {
-   "contig": "contig_44429",
-   "gc_content": 63.693630636936305,
-  }, {
-   "contig": "contig_3232",
-   "gc_content": 70.34296570342966,
-  }, {
-   "contig": "contig_59587",
-   "gc_content": 69.71302869713028,
-  }, {
-   "contig": "contig_28991",
-   "gc_content": 68.01319868013199,
-  }, {
-   "contig": "contig_24082",
-   "gc_content": 66.37760327756914,
-  }, {
-   "contig": "contig_34476",
-   "gc_content": 66.61333866613339,
-  }, {
-   "contig": "contig_44869",
-   "gc_content": 66.06339366063393,
-  }, {
-   "contig": "contig_43109",
-   "gc_content": 65.35346465353464,
-  }, {
-   "contig": "contig_34300",
-   "gc_content": 67.43325667433257,
-  }, {
-   "contig": "contig_53183",
-   "gc_content": 67.96320367963203,
-  }, {
-   "contig": "contig_47970",
-   "gc_content": 65.67343265673433,
-  }, {
-   "contig": "contig_38588",
-   "gc_content": 67.12328767123287,
-  }, {
-   "contig": "contig_42626",
-   "gc_content": 69.38306169383061,
-  }, {
-   "contig": "contig_46976",
-   "gc_content": 68.32316768323167,
-  }, {
-   "contig": "contig_6907",
-   "gc_content": 65.07552427042089,
-  }, {
-   "contig": "contig_28652",
-   "gc_content": 67.63323667633236,
-  }, {
-   "contig": "contig_29494",
-   "gc_content": 67.55324467553244,
-  }, {
-   "contig": "contig_1354",
-   "gc_content": 70.59294070592941,
-  }, {
-   "contig": "contig_10410",
-   "gc_content": 68.50314968503149,
-  }, {
-   "contig": "contig_16275",
-   "gc_content": 66.42512077294685,
-  }, {
-   "contig": "contig_29352",
-   "gc_content": 67.64323567643235,
-  }, {
-   "contig": "contig_35616",
-   "gc_content": 69.57304269573042,
-  }, {
-   "contig": "contig_24658",
-   "gc_content": 64.48246015986966,
-  }, {
-   "contig": "contig_15024",
-   "gc_content": 65.86341365863414,
-  }, {
-   "contig": "contig_49304",
-   "gc_content": 69.24307569243075,
-  }, {
-   "contig": "contig_44321",
-   "gc_content": 69.98300169983001,
-  }, {
-   "contig": "contig_44129",
-   "gc_content": 67.33326667333267,
-  }, {
-   "contig": "contig_31861",
-   "gc_content": 67.22327767223277,
-  }, {
-   "contig": "contig_43532",
-   "gc_content": 65.83341665833416,
-  }, {
-   "contig": "contig_18469",
-   "gc_content": 69.21904233940822,
-  }, {
-   "contig": "contig_11724",
-   "gc_content": 69.4130586941306,
-  }, {
-   "contig": "contig_18339",
-   "gc_content": 69.69303069693031,
-  }, {
-   "contig": "contig_21935",
-   "gc_content": 70.79379773200648,
-  }, {
-   "contig": "contig_35188",
-   "gc_content": 63.70362963703629,
-  }, {
-   "contig": "contig_25685",
-   "gc_content": 58.664133586641334,
-  }, {
-   "contig": "contig_29816",
-   "gc_content": 67.68807124443403,
-  }, {
-   "contig": "contig_16257",
-   "gc_content": 64.83351664833516,
-  }, {
-   "contig": "contig_7533",
-   "gc_content": 66.4833516648335,
-  }, {
-   "contig": "contig_40855",
-   "gc_content": 62.98705522669616,
-  }, {
-   "contig": "contig_47258",
-   "gc_content": 67.6932306769323,
-  }, {
-   "contig": "contig_24193",
-   "gc_content": 66.63333666633336,
-  }, {
-   "contig": "contig_7067",
-   "gc_content": 64.91350864913508,
-  }, {
-   "contig": "contig_2153",
-   "gc_content": 66.37336266373363,
-  }, {
-   "contig": "contig_8381",
-   "gc_content": 66.52862985685071,
-  }, {
-   "contig": "contig_4532",
-   "gc_content": 68.55314468553144,
-  }, {
-   "contig": "contig_50303",
-   "gc_content": 69.35306469353064,
-  }, {
-   "contig": "contig_54708",
-   "gc_content": 68.8995633187773,
-  }, {
-   "contig": "contig_52466",
-   "gc_content": 66.63333666633336,
-  }, {
-   "contig": "contig_13346",
-   "gc_content": 68.59593262119968,
-  }, {
-   "contig": "contig_33593",
-   "gc_content": 65.83341665833416,
-  }, {
-   "contig": "contig_26878",
-   "gc_content": 65.19591426657736,
-  }, {
-   "contig": "contig_12026",
-   "gc_content": 66.64923656138883,
-  }, {
-   "contig": "contig_20004",
-   "gc_content": 66.47351477904596,
-  }, {
-   "contig": "contig_21243",
-   "gc_content": 66.47678018575851,
-  }, {
-   "contig": "contig_14750",
-   "gc_content": 64.20958006934634,
-  }, {
-   "contig": "contig_31774",
-   "gc_content": 60.30977074235808,
-  }, {
-   "contig": "contig_51827",
-   "gc_content": 63.00077997589165,
-  }, {
-   "contig": "contig_54481",
-   "gc_content": 66.19366626065774,
-  }, {
-   "contig": "contig_49369",
-   "gc_content": 65.14039722140691,
-  }, {
-   "contig": "contig_3864",
-   "gc_content": 66.83513595471545,
-  }, {
-   "contig": "contig_51649",
-   "gc_content": 65.23727844482562,
-  }, {
-   "contig": "contig_20225",
-   "gc_content": 64.12799622151375,
-  }, {
-   "contig": "contig_12231",
-   "gc_content": 65.75233408120431,
-  }, {
-   "contig": "contig_54256",
-   "gc_content": 54.52066590126292,
-  }, {
-   "contig": "contig_38065",
-   "gc_content": 66.87414604524062,
-  }, {
-   "contig": "contig_16307",
-   "gc_content": 66.61519456454602,
-  }, {
-   "contig": "contig_31503",
-   "gc_content": 65.0016061676839,
-  }, {
-   "contig": "contig_41087",
-   "gc_content": 68.59193438140807,
-  }, {
-   "contig": "contig_6566",
-   "gc_content": 69.88529361410717,
-  }, {
-   "contig": "contig_3967",
-   "gc_content": 64.21559548064457,
-  }, {
-   "contig": "contig_29052",
-   "gc_content": 69.71384674476666,
-  }, {
-   "contig": "contig_54604",
-   "gc_content": 56.39279437609842,
-  }, {
-   "contig": "contig_6673",
-   "gc_content": 52.23746345851136,
-  }, {
-   "contig": "contig_33577",
-   "gc_content": 65.93299095133285,
-  }, {
-   "contig": "contig_46390",
-   "gc_content": 50.678134303671854,
-  }, {
-   "contig": "contig_19213",
-   "gc_content": 68.40148698884758,
-  }, {
-   "contig": "contig_10218",
-   "gc_content": 55.880121396054626,
-  }, {
-   "contig": "contig_47743",
-   "gc_content": 62.40891555936562,
-  }, {
-   "contig": "contig_46170",
-   "gc_content": 67.26914229378902,
-  }, {
-   "contig": "contig_41815",
-   "gc_content": 64.15868673050615,
-  }, {
-   "contig": "contig_59250",
-   "gc_content": 50.98870056497176,
-  }, {
-   "contig": "contig_21340",
-   "gc_content": 62.84319707138499,
-  }, {
-   "contig": "contig_33987",
-   "gc_content": 69.73232669869594,
-  }, {
-   "contig": "contig_46908",
-   "gc_content": 64.80286738351253,
-  }, {
-   "contig": "contig_26607",
-   "gc_content": 67.85714285714286,
-  }, {
-   "contig": "contig_32924",
-   "gc_content": 61.81342632955536,
-  }, {
-   "contig": "contig_49024",
-   "gc_content": 63.41463414634146,
-  }, {
-   "contig": "contig_8770",
-   "gc_content": 72.56038647342994
-}];
+        {
+            "gc": 0.7368,
+            "id": 3047,
+            "length": 10000,
+            "name": "contig-100_153.0"
+        },
+        {
+            "gc": 0.7308,
+            "id": 1865,
+            "length": 10000,
+            "name": "contig-100_41.10"
+        },
+        {
+            "gc": 0.7239,
+            "id": 1864,
+            "length": 10000,
+            "name": "contig-100_41.9"
+        },
+        {
+            "gc": 0.7183,
+            "id": 2714,
+            "length": 10000,
+            "name": "contig-100_102.3"
+        },
+        {
+            "gc": 0.7173755099759682,
+            "id": 3084,
+            "length": 17893,
+            "name": "contig-100_161.3"
+        },
+        {
+            "gc": 0.7164,
+            "id": 1075,
+            "length": 10000,
+            "name": "contig-100_16.12"
+        },
+        {
+            "gc": 0.7163,
+            "id": 1983,
+            "length": 10000,
+            "name": "contig-100_47.4"
+        },
+        {
+            "gc": 0.7134,
+            "id": 1840,
+            "length": 10000,
+            "name": "contig-100_40.6"
+        },
+        {
+            "gc": 0.7114,
+            "id": 991,
+            "length": 10000,
+            "name": "contig-100_14.21"
+        },
+        {
+            "gc": 0.7114,
+            "id": 1074,
+            "length": 10000,
+            "name": "contig-100_16.11"
+        },
+        {
+            "gc": 0.711,
+            "id": 1079,
+            "length": 10000,
+            "name": "contig-100_16.16"
+        },
+        {
+            "gc": 0.7107,
+            "id": 2907,
+            "length": 10000,
+            "name": "contig-100_127.0"
+        },
+        {
+            "gc": 0.7101,
+            "id": 1856,
+            "length": 10000,
+            "name": "contig-100_41.1"
+        },
+        {
+            "gc": 0.7099,
+            "id": 992,
+            "length": 10000,
+            "name": "contig-100_14.22"
+        },
+        {
+            "gc": 0.7097,
+            "id": 1390,
+            "length": 10000,
+            "name": "contig-100_24.10"
+        },
+        {
+            "gc": 0.7096,
+            "id": 2705,
+            "length": 10000,
+            "name": "contig-100_101.3"
+        },
+        {
+            "gc": 0.7089,
+            "id": 1228,
+            "length": 10000,
+            "name": "contig-100_19.33"
+        },
+        {
+            "gc": 0.7082,
+            "id": 1271,
+            "length": 10000,
+            "name": "contig-100_20.36"
+        },
+        {
+            "gc": 0.7074,
+            "id": 1411,
+            "length": 10000,
+            "name": "contig-100_24.31"
+        },
+        {
+            "gc": 0.7072,
+            "id": 2043,
+            "length": 10000,
+            "name": "contig-100_50.6"
+        },
+        {
+            "gc": 0.707,
+            "id": 1670,
+            "length": 10000,
+            "name": "contig-100_33.14"
+        },
+        {
+            "gc": 0.7067,
+            "id": 1892,
+            "length": 10000,
+            "name": "contig-100_42.16"
+        },
+        {
+            "gc": 0.7061,
+            "id": 1253,
+            "length": 10000,
+            "name": "contig-100_20.18"
+        },
+        {
+            "gc": 0.7061,
+            "id": 1883,
+            "length": 10000,
+            "name": "contig-100_42.7"
+        },
+        {
+            "gc": 0.7060492218047995,
+            "id": 3198,
+            "length": 13043,
+            "name": "contig-100_194.2"
+        },
+        {
+            "gc": 0.7058,
+            "id": 1871,
+            "length": 10000,
+            "name": "contig-100_41.16"
+        },
+        {
+            "gc": 0.7056,
+            "id": 1410,
+            "length": 10000,
+            "name": "contig-100_24.30"
+        },
+        {
+            "gc": 0.7051,
+            "id": 1531,
+            "length": 10000,
+            "name": "contig-100_28.21"
+        },
+        {
+            "gc": 0.705,
+            "id": 2731,
+            "length": 10000,
+            "name": "contig-100_104.2"
+        },
+        {
+            "gc": 0.7048,
+            "id": 116,
+            "length": 10000,
+            "name": "contig-100_2.3"
+        },
+        {
+            "gc": 0.7046,
+            "id": 2888,
+            "length": 10000,
+            "name": "contig-100_124.2"
+        },
+        {
+            "gc": 0.7046,
+            "id": 3083,
+            "length": 10000,
+            "name": "contig-100_161.2"
+        },
+        {
+            "gc": 0.7044,
+            "id": 1415,
+            "length": 10000,
+            "name": "contig-100_25.1"
+        },
+        {
+            "gc": 0.7042,
+            "id": 1518,
+            "length": 10000,
+            "name": "contig-100_28.8"
+        },
+        {
+            "gc": 0.7042,
+            "id": 2963,
+            "length": 10000,
+            "name": "contig-100_136.2"
+        },
+        {
+            "gc": 0.7039,
+            "id": 2972,
+            "length": 10000,
+            "name": "contig-100_138.0"
+        },
+        {
+            "gc": 0.7035,
+            "id": 1839,
+            "length": 10000,
+            "name": "contig-100_40.5"
+        },
+        {
+            "gc": 0.702,
+            "id": 1754,
+            "length": 10000,
+            "name": "contig-100_36.19"
+        },
+        {
+            "gc": 0.7019,
+            "id": 1003,
+            "length": 10000,
+            "name": "contig-100_14.33"
+        },
+        {
+            "gc": 0.7012,
+            "id": 2903,
+            "length": 10000,
+            "name": "contig-100_126.3"
+        },
+        {
+            "gc": 0.7008,
+            "id": 1973,
+            "length": 10000,
+            "name": "contig-100_46.14"
+        },
+        {
+            "gc": 0.7007,
+            "id": 1663,
+            "length": 10000,
+            "name": "contig-100_33.7"
+        },
+        {
+            "gc": 0.7006,
+            "id": 2044,
+            "length": 10000,
+            "name": "contig-100_50.7"
+        },
+        {
+            "gc": 0.7005,
+            "id": 1395,
+            "length": 10000,
+            "name": "contig-100_24.15"
+        },
+        {
+            "gc": 0.7003,
+            "id": 1948,
+            "length": 10000,
+            "name": "contig-100_45.9"
+        },
+        {
+            "gc": 0.7001,
+            "id": 1660,
+            "length": 10000,
+            "name": "contig-100_33.4"
+        },
+        {
+            "gc": 0.699,
+            "id": 2051,
+            "length": 10000,
+            "name": "contig-100_50.14"
+        },
+        {
+            "gc": 0.6989,
+            "id": 2708,
+            "length": 10000,
+            "name": "contig-100_101.6"
+        },
+        {
+            "gc": 0.6988,
+            "id": 1383,
+            "length": 10000,
+            "name": "contig-100_24.3"
+        },
+        {
+            "gc": 0.6988,
+            "id": 1396,
+            "length": 10000,
+            "name": "contig-100_24.16"
+        }
+];
 
-var x_data = "gc_content"
-    y_data = "contig"
+var x_data = "gc"
+    y_data = "name"
     colour = "steelblue"
 
 var minbin = d3.min(values, function (d) {
-    return Math.round(d[x_data]/10)*10
+        return Math.floor(d[x_data]/0.1)*0.1
 });
 
 var maxbin = d3.max(values, function (d) {
-        return Math.ceil(d[x_data]/10)*10
+        return Math.ceil(d[x_data]/0.1)*0.1
 });
 
-var binsize = 2;
+var binsize = (maxbin - minbin) / 10;
+
+console.log(binsize);
+
+console.log(minbin);
+console.log(maxbin);
+
 var numbins = (maxbin - minbin) / binsize;
-var binmargin = .2;
+var binmargin = 0.002;
 var margin = {top: 10, right: 10, bottom: 50, left: 10};
 var width = 500 - margin.left - margin.right;
 var height = 500 - margin.top - margin.bottom;
 
 var active = false;
 
-histdata = new Array(numbins);
+console.log(Math.round(numbins));
+
+histdata = new Array(Math.round(numbins));
 for (var i = 0; i < numbins; i++) {
     histdata[i] = { numfill: 0, meta: "" };
 }
@@ -974,6 +375,8 @@ values.forEach(function(d) {
 
     }
 });
+
+console.log(histdata);
 
 var x = d3.scale.linear()
   .domain([0, (maxbin - minbin)])

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+	<style>
+
+		body {
+		  font: 10px sans-serif;
+		}
+
+		.bar rect {
+		  fill: steelblue;
+		  shape-rendering: crispEdges;
+		}
+
+		.bar text {
+		  fill: #fff;
+		}
+
+		.axis path, .axis line {
+		  fill: none;
+		  stroke: #000;
+		  shape-rendering: crispEdges;
+		}
+		.contig_info {
+		  border-style: solid;
+		  border-color: grey;
+		  border-radius: 5px;
+		  border-width: 1px;
+		  overflow-y: scroll;
+		  height: 200px;
+		  width: 300px;
+		}
+	</style>
+<body>
+  
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script>
+// Generate a Bates distribution of 10 random variables.
+var values = [
+{
+ "contig": "contig_56364",
+ "gc_content": 69.38306169383061,
+ "lengte": 10001
+}, {
+ "contig": "contig_7778",
+ "gc_content": 68.32316768323167,
+ "lengte": 10001
+}, {
+ "contig": "contig_51986",
+ "gc_content": 65.07552427042089,
+ "lengte": 13638
+}, {
+ "contig": "contig_26587",
+ "gc_content": 67.63323667633236,
+ "lengte": 10001
+}, {
+ "contig": "contig_10251",
+ "gc_content": 67.55324467553244,
+ "lengte": 10001
+}, {
+ "contig": "contig_47723",
+ "gc_content": 70.59294070592941,
+ "lengte": 10001
+}, {
+ "contig": "contig_23483",
+ "gc_content": 68.50314968503149,
+ "lengte": 10001
+}, {
+ "contig": "contig_57724",
+ "gc_content": 66.42512077294685,
+ "lengte": 16146
+}, {
+ "contig": "contig_22341",
+ "gc_content": 67.64323567643235,
+ "lengte": 10001
+}, {
+ "contig": "contig_7863",
+ "gc_content": 69.57304269573042,
+ "lengte": 10001
+}, {
+ "contig": "contig_46773",
+ "gc_content": 64.48246015986966,
+ "lengte": 19641
+}, {
+ "contig": "contig_47646",
+ "gc_content": 65.86341365863414,
+ "lengte": 10001
+}, {
+ "contig": "contig_51045",
+ "gc_content": 69.24307569243075,
+ "lengte": 10001
+}, {
+ "contig": "contig_10979",
+ "gc_content": 69.98300169983001,
+ "lengte": 10001
+}, {
+ "contig": "contig_21958",
+ "gc_content": 67.33326667333267,
+ "lengte": 10001
+}, {
+ "contig": "contig_48933",
+ "gc_content": 67.22327767223277,
+ "lengte": 10001
+}, {
+ "contig": "contig_14257",
+ "gc_content": 65.83341665833416,
+ "lengte": 10001
+}, {
+ "contig": "contig_43018",
+ "gc_content": 69.21904233940822,
+ "lengte": 14431
+}, {
+ "contig": "contig_44860",
+ "gc_content": 69.4130586941306,
+ "lengte": 10001
+}, {
+ "contig": "contig_14937",
+ "gc_content": 69.69303069693031,
+ "lengte": 10001
+}, {
+ "contig": "contig_10329",
+ "gc_content": 70.79379773200648,
+ "lengte": 17284
+}, {
+ "contig": "contig_51024",
+ "gc_content": 63.70362963703629,
+ "lengte": 10001
+}, {
+ "contig": "contig_42833",
+ "gc_content": 58.664133586641334,
+ "lengte": 10001
+}, {
+ "contig": "contig_54382",
+ "gc_content": 67.68807124443403,
+ "lengte": 17068
+}, {
+ "contig": "contig_19645",
+ "gc_content": 64.83351664833516,
+ "lengte": 10001
+}, {
+ "contig": "contig_43700",
+ "gc_content": 66.4833516648335,
+ "lengte": 10001
+}, {
+ "contig": "contig_1731",
+ "gc_content": 62.98705522669616,
+ "lengte": 15373
+}, {
+ "contig": "contig_47612",
+ "gc_content": 67.6932306769323,
+ "lengte": 10001
+}, {
+ "contig": "contig_39834",
+ "gc_content": 66.63333666633336,
+ "lengte": 10001
+}, {
+ "contig": "contig_32769",
+ "gc_content": 64.91350864913508,
+ "lengte": 10001
+}, {
+ "contig": "contig_7637",
+ "gc_content": 66.37336266373363,
+ "lengte": 10001
+}, {
+ "contig": "contig_15209",
+ "gc_content": 66.52862985685071,
+ "lengte": 19560
+}, {
+ "contig": "contig_11170",
+ "gc_content": 68.55314468553144,
+ "lengte": 10001
+}, {
+ "contig": "contig_54670",
+ "gc_content": 69.35306469353064,
+ "lengte": 10001
+}, {
+ "contig": "contig_27957",
+ "gc_content": 68.8995633187773,
+ "lengte": 11450
+}, {
+ "contig": "contig_50260",
+ "gc_content": 66.63333666633336,
+ "lengte": 10001
+}, {
+ "contig": "contig_21710",
+ "gc_content": 68.59593262119968,
+ "lengte": 19472
+}, {
+ "contig": "contig_1185",
+ "gc_content": 65.83341665833416,
+ "lengte": 10001
+}, {
+ "contig": "contig_3852",
+ "gc_content": 65.19591426657736,
+ "lengte": 11944
+}, {
+ "contig": "contig_54188",
+ "gc_content": 66.64923656138883,
+ "lengte": 19124
+}, {
+ "contig": "contig_22897",
+ "gc_content": 66.47351477904596,
+ "lengte": 17085
+}, {
+ "contig": "contig_5619",
+ "gc_content": 66.47678018575851,
+ "lengte": 16150
+}, {
+ "contig": "contig_41925",
+ "gc_content": 64.20958006934634,
+ "lengte": 15574
+}, {
+ "contig": "contig_53373",
+ "gc_content": 60.30977074235808,
+ "lengte": 14656
+}, {
+ "contig": "contig_12537",
+ "gc_content": 63.00077997589165,
+ "lengte": 14103
+}, {
+ "contig": "contig_3002",
+ "gc_content": 66.19366626065774,
+ "lengte": 16420
+}, {
+ "contig": "contig_34984",
+ "gc_content": 65.14039722140691,
+ "lengte": 10221
+}, {
+ "contig": "contig_53244",
+ "gc_content": 66.83513595471545,
+ "lengte": 9893
+}, {
+ "contig": "contig_17097",
+ "gc_content": 65.23727844482562,
+ "lengte": 8745
+}, {
+ "contig": "contig_50048",
+ "gc_content": 64.12799622151375,
+ "lengte": 8469
+}, {
+ "contig": "contig_39220",
+ "gc_content": 65.75233408120431,
+ "lengte": 13817
+}, {
+ "contig": "contig_20069",
+ "gc_content": 54.52066590126292,
+ "lengte": 6968
+}, {
+ "contig": "contig_49087",
+ "gc_content": 66.87414604524062,
+ "lengte": 6587
+}, {
+ "contig": "contig_40488",
+ "gc_content": 66.61519456454602,
+ "lengte": 6476
+}, {
+ "contig": "contig_3859",
+ "gc_content": 65.0016061676839,
+ "lengte": 6226
+}, {
+ "contig": "contig_38455",
+ "gc_content": 68.59193438140807,
+ "lengte": 5852
+}, {
+ "contig": "contig_4907",
+ "gc_content": 69.88529361410717,
+ "lengte": 5841
+}, {
+ "contig": "contig_39779",
+ "gc_content": 64.21559548064457,
+ "lengte": 5399
+}, {
+ "contig": "contig_39802",
+ "gc_content": 69.71384674476666,
+ "lengte": 5207
+}, {
+ "contig": "contig_17760",
+ "gc_content": 56.39279437609842,
+ "lengte": 4552
+}, {
+ "contig": "contig_37363",
+ "gc_content": 52.23746345851136,
+ "lengte": 4447
+}, {
+ "contig": "contig_31823",
+ "gc_content": 65.93299095133285,
+ "lengte": 4089
+}, {
+ "contig": "contig_9168",
+ "gc_content": 50.678134303671854,
+ "lengte": 3023
+}, {
+ "contig": "contig_42874",
+ "gc_content": 68.40148698884758,
+ "lengte": 2690
+}, {
+ "contig": "contig_27732",
+ "gc_content": 55.880121396054626,
+ "lengte": 2636
+}, {
+ "contig": "contig_47029",
+ "gc_content": 62.40891555936562,
+ "lengte": 2333
+}, {
+ "contig": "contig_47660",
+ "gc_content": 67.26914229378902,
+ "lengte": 3043
+}, {
+ "contig": "contig_961",
+ "gc_content": 64.15868673050615,
+ "lengte": 2193
+}, {
+ "contig": "contig_11418",
+ "gc_content": 50.98870056497176,
+ "lengte": 2124
+}, {
+ "contig": "contig_23005",
+ "gc_content": 62.84319707138499,
+ "lengte": 1639
+}, {
+ "contig": "contig_58876",
+ "gc_content": 69.73232669869594,
+ "lengte": 1457
+}, {
+ "contig": "contig_23282",
+ "gc_content": 64.80286738351253,
+ "lengte": 1395
+}, {
+ "contig": "contig_23653",
+ "gc_content": 67.85714285714286,
+ "lengte": 1148
+}, {
+ "contig": "contig_31532",
+ "gc_content": 61.81342632955536,
+ "lengte": 1147
+}, {
+ "contig": "contig_26075",
+ "gc_content": 63.41463414634146,
+ "lengte": 1271
+}, {
+ "contig": "contig_37760",
+ "gc_content": 72.56038647342994,
+ "lengte": 1035
+}];
+
+var xValue = "gc_content",
+	yValue = "contig",
+	colour = "steelblue";
+
+var formatCount = d3.format(",.0f");
+
+var margin = {top: 10, right: 30, bottom: 30, left: 30},
+    width = 500 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var xMin = d3.min(values, function (d) {
+    return Math.floor(d[xValue]/10)*10
+});
+
+var xMax = d3.max(values, function (d) {
+    return Math.ceil(d[xValue]/10)*10
+});
+
+var x = d3.scale.linear()
+    .domain([xMin, xMax])
+    .range([0, width]);
+
+var data = d3.layout.histogram()
+    .value(function(d) { return d[xValue]; })
+    .bins(x.ticks(12));
+
+var histdata = data(values);
+
+var y = d3.scale.linear()
+	.domain([0, d3.max(histdata, function(d) { return d.y; })])
+	.range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var bar = svg.selectAll(".bar")
+    .data(histdata)
+    .enter().append("g")
+    .attr("class", "bar")
+    .attr("transform", function(d) { 
+        return "translate(" + x(d.x) + "," + y(d.y) + ")"; });
+
+var contigs = d3.select('body').append('div')
+    .attr("class", "contig_info")
+    .style('opacity', 0);
+
+var active = false;
+
+bar.append("rect")
+    .attr("x", 5)
+    .attr("width", (35))
+    .attr("height", function(d) { 
+        return height - y(d.y); })
+    .on('click',function(d){
+        contigs.transition()
+          .style('opacity',1)
+
+        contigs.html(function() {
+            bin_content = new Array(d.length);
+            for (var i = 0; i < d.length; i++) {
+			    bin_content[i] = { meta: "" };
+			}
+        	for (var i = 0; i < d.length; i++) {
+        		bin_content.meta += "<tr><td>" + d[i][yValue] +
+        							"</td><td>" + d[i][xValue].toFixed(1) +
+        							"</td></tr>";
+        	}
+            console.log(bin_content.meta);
+        	return '<table id="tiptable">' + bin_content.meta + "</table>" })
+
+            .style('left', '50px')
+            .style('top', '500px')
+        tempcolor = this.style.fill
+  
+        d3.select(this)
+            .style('opacity',.5)
+    })
+
+    .on("mouseout", function(d){
+        d3.select(this)
+            .style("opacity",1)
+    });
+
+bar.append("text")
+    .attr("dy", ".75em")
+    .attr("y", 6)
+    .attr("x", (35) / 1.60)
+    .attr("text-anchor", "middle")
+    .text(function(d) { return formatCount(d.y); });
+
+svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
+
+</script>
