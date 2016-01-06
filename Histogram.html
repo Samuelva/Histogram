@@ -26,7 +26,6 @@
 <body>
   
 <script src="//d3js.org/d3.v3.min.js"></script>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script>
 // Generate a Bates distribution of 10 random variables.
 var values = [
@@ -337,22 +336,20 @@ var x_data = "gc"
     colour = "steelblue"
 
 var minbin = d3.min(values, function (d) {
-    if (Math.floor(d[x_data]/0.1)*0.1 < 1) {
-        return 0.6
-    }
-    else {
-        return Math.floor(d[x_data]/0.1)*0.1 < 1
-    }
+        return Math.floor(d[x_data]/0.1)*0.1
 });
 
 var maxbin = d3.max(values, function (d) {
         return Math.ceil(d[x_data]/0.1)*0.1
 });
 
+var binsize = (maxbin - minbin) / 10;
+
+console.log(binsize);
+
 console.log(minbin);
 console.log(maxbin);
 
-var binsize = 0.02;
 var numbins = (maxbin - minbin) / binsize;
 var binmargin = 0.002;
 var margin = {top: 10, right: 10, bottom: 50, left: 10};
@@ -378,6 +375,8 @@ values.forEach(function(d) {
 
     }
 });
+
+console.log(histdata);
 
 var x = d3.scale.linear()
   .domain([0, (maxbin - minbin)])
