@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-	<style>
+    <style>
+        .bar rect {
+            fill: steelblue;
+            shape-rendering: crispEdges;
+        }
+        .bar text {
+            fill: #fff;
+        }
 
-		body {
-		  font: 10px sans-serif;
-		}
-
-		.bar rect {
-		  fill: steelblue;
-		  shape-rendering: crispEdges;
-		}
-
-		.bar text {
-		  fill: #fff;
-		}
-
-		.axis path, .axis line {
-		  fill: none;
-		  stroke: #000;
-		  shape-rendering: crispEdges;
-		}
-		.contig_info {
-		  border-style: solid;
-		  border-color: grey;
-		  border-radius: 5px;
-		  border-width: 1px;
-		  overflow-y: scroll;
-		  height: 200px;
-		  width: 300px;
-		}
-	</style>
+        .axis path, .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+        .contigBox {
+            border-style: solid;
+            border-color: grey;
+            border-radius: 5px;
+            border-width: 1px;
+            overflow-y: scroll;
+            height: 200px;
+            width: 300px;
+        }
+        #contigtable {
+            margin: 10px 10px 10px 10px;
+        }
+        .barText {
+            font: 10px sans-serif;
+        }
+    </style>
 <body>
-  
+
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
-// Generate a Bates distribution of 10 random variables.
+
 var values = [
 {
  "contig": "contig_56364",
@@ -343,8 +343,8 @@ var values = [
 }];
 
 var xValue = "gc_content",
-	yValue = "contig",
-	colour = "steelblue";
+    yValue = "contig",
+    colour = "steelblue";
 
 var formatCount = d3.format(",.0f");
 
@@ -371,8 +371,8 @@ var data = d3.layout.histogram()
 var histdata = data(values);
 
 var y = d3.scale.linear()
-	.domain([0, d3.max(histdata, function(d) { return d.y; })])
-	.range([height, 0]);
+    .domain([0, d3.max(histdata, function(d) { return d.y; })])
+    .range([height, 0]);
 
 var xAxis = d3.svg.axis()
     .scale(x)
@@ -391,37 +391,59 @@ var bar = svg.selectAll(".bar")
     .attr("transform", function(d) { 
         return "translate(" + x(d.x) + "," + y(d.y) + ")"; });
 
-var contigs = d3.select('body').append('div')
-    .attr("class", "contig_info")
-    .style('opacity', 0);
+var contigs = d3.select("body").append("div")
+    .attr("class", "contigBox")
+    .style("opacity", 0);
 
 var active = false;
+var activeBar;
 
 bar.append("rect")
     .attr("x", 5)
     .attr("width", (35))
     .attr("height", function(d) { 
         return height - y(d.y); })
-    .on('click',function(d){
-        contigs.transition()
-          .style('opacity',1)
+    .on("click",function(d) {
+        if (activeBar == this.parentNode) {
+            bar.select("rect").style("opacity", 1)
+            contigs.transition()
+                .style("opacity", 0)
+            activeBar = ""
+        } else {
+            bar.select("rect").style("opacity", 1)
+            d3.select(this).transition().style("opacity", .5)
+            activeBar = this.parentNode;
+        
+            contigs.transition()
+                .style("opacity", 1)
+                .style("left", "50px")
+                .style("top", "500px")
 
-        contigs.html(function() {
-            var bin_content = {
-                meta : ""
-            }
-        	for (var i = 0; i < d.length; i++) {
-        		bin_content.meta += "<tr><td>" + d[i][yValue] +
-        							"</td><td>" + d[i][xValue].toFixed(1) +
-        							"</td></tr>";
-        	}
-        	return '<table id="tiptable">' + bin_content.meta + "</table>" })
+            contigs.html(function() {
+                var bin_content = {
+                    meta : ""
+                }
+                for (var i = 0; i < d.length; i++) {
+                    bin_content.meta += "<tr><td>" + d[i][yValue] +
+                                        "</td><td>" + d[i][xValue].toFixed(1) +
+                                        "</td></tr>";
+                }
+                return '<table id="contigtable">' + bin_content.meta + "</table>" })
+            
 
-            .style('left', '50px')
-            .style('top', '500px')
+        }
+        // } else if (active == true) {
+        //     bar.select("rect").style("opacity", 1)
+
+        //     contigs.transition()
+        //         .style("opacity", 0)
+
+        //     active = false
+        // }
     });
 
 bar.append("text")
+    .attr("class", "barText")
     .attr("dy", ".75em")
     .attr("y", 6)
     .attr("x", (35) / 1.60)
